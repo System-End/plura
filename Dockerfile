@@ -2,7 +2,7 @@ FROM rust:1.92-alpine as builder
 ARG APP_NAME
 WORKDIR /app
 
-RUN apk add --no-cache clang lld musl-dev git llvm-dev libclang-dev
+RUN apk add --no-cache clang lld musl-dev git llvm-dev libc-dev
 
 COPY . .
 
