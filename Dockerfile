@@ -1,11 +1,8 @@
-ARG RUST_VERSION=1.92
-ARG APP_NAME=plura
-
-FROM rust:${RUST_VERSION}-alpine as builder
+FROM rust:1.92-alpine as builder
 ARG APP_NAME
 WORKDIR /app
 
-RUN apk add --no-cache clang lld musl-dev git
+RUN apk add --no-cache clang lld musl-dev git llvm-dev libclang-dev
 
 COPY . .
 
