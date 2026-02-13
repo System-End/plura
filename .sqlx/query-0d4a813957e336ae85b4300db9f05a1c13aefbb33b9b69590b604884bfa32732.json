@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "\n        SELECT\n            owner_id as \"owner_id: user::Id<Trusted>\"\n        FROM\n            system_oauth_process\n        WHERE csrf = $1\n        ",
+  "describe": {
+    "columns": [
+      {
+        "name": "owner_id: user::Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "0d4a813957e336ae85b4300db9f05a1c13aefbb33b9b69590b604884bfa32732"
+}

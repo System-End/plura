@@ -1,0 +1,50 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            SELECT\n                id as \"id: Id<Trusted>\",\n                owner_id as \"owner_id: user::Id<Trusted>\",\n                currently_fronting_member_id as \"currently_fronting_member_id: member::Id<Trusted>\",\n                auto_switch_on_trigger,\n                slack_oauth_token,\n                created_at as \"created_at: time::PrimitiveDateTime\"\n            FROM systems\n            WHERE id = $1\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "owner_id: user::Id<Trusted>",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "currently_fronting_member_id: member::Id<Trusted>",
+        "ordinal": 2,
+        "type_info": "Integer"
+      },
+      {
+        "name": "auto_switch_on_trigger",
+        "ordinal": 3,
+        "type_info": "Bool"
+      },
+      {
+        "name": "slack_oauth_token",
+        "ordinal": 4,
+        "type_info": "Text"
+      },
+      {
+        "name": "created_at: time::PrimitiveDateTime",
+        "ordinal": 5,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "a0857365f6f46169cedc2098d1c0c282b4380aac28674f37ba08aeea83626dee"
+}

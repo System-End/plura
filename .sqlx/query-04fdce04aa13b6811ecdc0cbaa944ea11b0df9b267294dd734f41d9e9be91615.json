@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "\n                SELECT\n                    members.id as 'id: Id<Trusted>'\n                FROM members\n                JOIN systems ON members.system_id = systems.id\n                WHERE members.id = $1 AND systems.owner_id = $2\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "04fdce04aa13b6811ecdc0cbaa944ea11b0df9b267294dd734f41d9e9be91615"
+}

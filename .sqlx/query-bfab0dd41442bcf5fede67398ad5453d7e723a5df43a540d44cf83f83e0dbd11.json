@@ -1,0 +1,44 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            INSERT INTO triggers (member_id, system_id, typ, text)\n            VALUES ($1, $2, $3, $4)\n            RETURNING\n                id as \"id: Id<Trusted>\",\n                member_id as \"member_id: member::Id<Trusted>\",\n                system_id as \"system_id: system::Id<Trusted>\",\n                typ,\n                text\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "member_id: member::Id<Trusted>",
+        "ordinal": 1,
+        "type_info": "Integer"
+      },
+      {
+        "name": "system_id: system::Id<Trusted>",
+        "ordinal": 2,
+        "type_info": "Integer"
+      },
+      {
+        "name": "typ",
+        "ordinal": 3,
+        "type_info": "Integer"
+      },
+      {
+        "name": "text",
+        "ordinal": 4,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "bfab0dd41442bcf5fede67398ad5453d7e723a5df43a540d44cf83f83e0dbd11"
+}

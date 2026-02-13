@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT\n                id as 'id: Id<Trusted>'\n            FROM aliases\n            WHERE id = $1 AND system_id = $2",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "2780cd7eb560384850f1ddf60b4f6c4b361e8ea7dec98d9661726573b4d2caa4"
+}

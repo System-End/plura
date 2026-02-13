@@ -1,0 +1,80 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            SELECT\n                id as \"id: member::Id<Trusted>\",\n                system_id as \"system_id: Id<Trusted>\",\n                full_name,\n                display_name,\n                profile_picture_url,\n                title,\n                pronouns,\n                name_pronunciation,\n                name_recording_url,\n                enabled,\n                created_at as \"created_at: time::PrimitiveDateTime\"\n            FROM\n                members\n            WHERE system_id = $1\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: member::Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "system_id: Id<Trusted>",
+        "ordinal": 1,
+        "type_info": "Integer"
+      },
+      {
+        "name": "full_name",
+        "ordinal": 2,
+        "type_info": "Text"
+      },
+      {
+        "name": "display_name",
+        "ordinal": 3,
+        "type_info": "Text"
+      },
+      {
+        "name": "profile_picture_url",
+        "ordinal": 4,
+        "type_info": "Text"
+      },
+      {
+        "name": "title",
+        "ordinal": 5,
+        "type_info": "Text"
+      },
+      {
+        "name": "pronouns",
+        "ordinal": 6,
+        "type_info": "Text"
+      },
+      {
+        "name": "name_pronunciation",
+        "ordinal": 7,
+        "type_info": "Text"
+      },
+      {
+        "name": "name_recording_url",
+        "ordinal": 8,
+        "type_info": "Text"
+      },
+      {
+        "name": "enabled",
+        "ordinal": 9,
+        "type_info": "Bool"
+      },
+      {
+        "name": "created_at: time::PrimitiveDateTime",
+        "ordinal": 10,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "83319616c9a81980005676b35befdd41ec95a3117dc8b7f4215a54bf855950ca"
+}

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n                  INSERT INTO systems (owner_id, slack_oauth_token)\n                  VALUES ($1, $2)\n                  ON CONFLICT (owner_id) DO UPDATE SET slack_oauth_token = $2\n                ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "f67cd8c94467cfbaefe6bbfb8940144eda3cb92cf447d6d77736837e2cc04b9e"
+}

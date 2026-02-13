@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            SELECT currently_fronting_member_id as \"id: member::Id<Trusted>\"\n            FROM systems\n            WHERE id = $1\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: member::Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      true
+    ]
+  },
+  "hash": "fb70767a8f81b4a0ff80331e9a2a3ef4d5b84f8bbaf713b6cc2db988786ed9b4"
+}
