@@ -98,12 +98,12 @@ enum CommandError {
     Aliases,
 }
 
-// TO-DO: figure out error handling
 #[tracing::instrument(skip(environment, event))]
 pub async fn process_command_event(
     Extension(environment): Extension<Arc<SlackHyperListenerEnvironment>>,
     Extension(event): Extension<SlackCommandEvent>,
 ) -> Json<SlackCommandEventResponse> {
+    println!("Received /command request");
     let client = environment.client.clone();
     let state = environment.user_state.clone();
 
