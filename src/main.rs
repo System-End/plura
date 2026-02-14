@@ -45,7 +45,8 @@ enum Error {
     Initialization,
 }
 
-#[dotenvy::load]
+let _ = dotenvy::from_filename(".env");
+
 #[tokio::main]
 #[tracing::instrument]
 async fn main() -> error_stack::Result<ExitCode, Error> {
