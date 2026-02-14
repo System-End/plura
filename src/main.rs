@@ -48,7 +48,6 @@ enum Error {
 #[tokio::main]
 #[tracing::instrument]
 async fn main() -> error_stack::Result<ExitCode, Error> {
-    let _ = dotenvy::dotenv();
     let console_subscriber = tracing_subscriber::fmt::layer().pretty();
     let error_subscriber = tracing_error::ErrorLayer::default();
     let env_subscriber = EnvFilter::builder()
