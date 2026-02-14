@@ -45,11 +45,10 @@ enum Error {
     Initialization,
 }
 
-let _ = dotenvy::from_filename(".env");
-
 #[tokio::main]
 #[tracing::instrument]
 async fn main() -> error_stack::Result<ExitCode, Error> {
+    let _ = dotenvy::from_filename(".env");
     let console_subscriber = tracing_subscriber::fmt::layer().pretty();
     let error_subscriber = tracing_error::ErrorLayer::default();
     let env_subscriber = EnvFilter::builder()
