@@ -30,8 +30,8 @@ use tracing::{debug, info, info_span, level_filters::LevelFilter};
 use tracing_subscriber::{EnvFilter, Layer, layer::SubscriberExt, util::SubscriberInitExt};
 
 /// The slack app token. Used for socket mode if we ever decide to use it.
-pub static APP_TOKEN: LazyLock<SlackApiToken> =
-    LazyLock::new(|| SlackApiToken::new(env::slack_app_token().into()));
+// pub static APP_TOKEN: LazyLock<Option<SlackApiToken>> =
+//     LazyLock::new(|| env::slack_app_token().map(|t| SlackApiToken::new(t.into())));
 
 /// The slack bot token. Used for most interactions
 pub static BOT_TOKEN: LazyLock<SlackApiToken> =
