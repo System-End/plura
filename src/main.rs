@@ -48,6 +48,7 @@ enum Error {
 #[tokio::main]
 #[tracing::instrument]
 async fn main() -> error_stack::Result<ExitCode, Error> {
+    println!("Starting main");
     let console_subscriber = tracing_subscriber::fmt::layer().pretty();
     let error_subscriber = tracing_error::ErrorLayer::default();
     let env_subscriber = EnvFilter::builder()
@@ -172,6 +173,7 @@ async fn main() -> error_stack::Result<ExitCode, Error> {
 
     info!("Slack bot is running");
 
+    println!("Before binding");
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8080")
         .await
         .attach_printable("Failed to bind to address")
