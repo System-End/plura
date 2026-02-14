@@ -179,10 +179,14 @@ async fn main() -> error_stack::Result<ExitCode, Error> {
         .attach_printable("Failed to bind to address")
         .change_context(Error::Initialization)?;
 
+    println!("After binding, before serve");
+
+    println!("Before axum::serve");
     axum::serve(listener, app)
         .await
         .attach_printable("Failed to start server")
         .change_context(Error::Initialization)?;
+    println!("After axum::serve (server exited)");
 
     Ok(ExitCode::SUCCESS)
 }
