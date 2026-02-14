@@ -105,7 +105,7 @@ pub async fn process_command_event(
 ) -> Json<SlackCommandEventResponse> {
     println!("Received /command request");
     tracing::info!("Received /command request");
-    tracing::debug!("Environment: {:?}", environment);
+    tracing::debug!("Environment initialized.");
     tracing::debug!("Event: {:?}", event);
 
     let client = environment.client.clone();
