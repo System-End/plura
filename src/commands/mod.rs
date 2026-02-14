@@ -104,13 +104,20 @@ pub async fn process_command_event(
     Extension(event): Extension<SlackCommandEvent>,
 ) -> Json<SlackCommandEventResponse> {
     println!("Received /command request");
+    tracing::info!("Received /command request");
+    tracing::debug!("Environment: {:?}", environment);
+    tracing::debug!("Event: {:?}", event);
+
     let client = environment.client.clone();
     let state = environment.user_state.clone();
 
     match command_event_callback(event, client, state).await {
-        Ok(response) => Json(response),
+        Ok(response) => {
+            tracing::info!("Successfully processed command event: {:?}", response);
+            Json(response)
+        }
         Err(e) => {
-            error!(error = ?e, "Error processing command event");
+            tracing::error!(error = ?e, "Error processing command event");
             Json(SlackCommandEventResponse::new(
                 SlackMessageContent::new()
                     .with_text("Error processing command! Logged to developers".into()),
