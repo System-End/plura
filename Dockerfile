@@ -28,7 +28,6 @@ RUN adduser \
 WORKDIR /app
 RUN chown appuser:appuser /app
 USER appuser
-COPY .env /app/.env
 
 COPY --from=builder /bin/server /app/plura
 
