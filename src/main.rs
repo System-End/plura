@@ -48,7 +48,10 @@ enum Error {
 #[tokio::main]
 #[tracing::instrument]
 async fn main() -> error_stack::Result<ExitCode, Error> {
-    println!("Starting main");
+    if std::env::var("USE_DOTENV").is_ok() {
+        let _ = dotenvy::dotenv();
+    }
+    tracing::info!("Starting main");
     let console_subscriber = tracing_subscriber::fmt::layer().pretty();
     let error_subscriber = tracing_error::ErrorLayer::default();
     let env_subscriber = EnvFilter::builder()
@@ -173,20 +176,20 @@ async fn main() -> error_stack::Result<ExitCode, Error> {
 
     info!("Slack bot is running");
 
-    println!("Before binding");
+    tracing::info!("Before binding");
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8080")
         .await
         .attach_printable("Failed to bind to address")
         .change_context(Error::Initialization)?;
 
-    println!("After binding, before serve");
+    tracing::info!("After binding, before serve");
 
-    println!("Before axum::serve");
+    tracing::info!("Before axum::serve");
     axum::serve(listener, app)
         .await
         .attach_printable("Failed to start server")
         .change_context(Error::Initialization)?;
-    println!("After axum::serve (server exited)");
+    tracing::info!("After axum::serve (server exited)");
 
     Ok(ExitCode::SUCCESS)
 }
