@@ -49,7 +49,7 @@ enum Error {
 #[tracing::instrument]
 async fn main() -> error_stack::Result<ExitCode, Error> {
     if std::env::var("USE_DOTENV").is_ok() {
-        let _ = dotenvy::from_path(".env");
+        let _ = dotenvy::from_filename(".env");
     }
     tracing::info!("Starting main");
     let console_subscriber = tracing_subscriber::fmt::layer().pretty();
