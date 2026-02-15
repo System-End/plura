@@ -72,7 +72,7 @@ async fn main() -> error_stack::Result<ExitCode, Error> {
                     }
                     // Only set if key non-empty
                     if !key.is_empty() {
-                        std::env::set_var(key, val);
+                        unsafe { std::env::set_var(key, val) };
                     }
                 }
             }
