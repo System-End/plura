@@ -3,7 +3,7 @@ A slack bot designed to make the lives of plural systems easier. Inspired by Plu
 
 https://github.com/user-attachments/assets/cff44cd0-ed4f-4e28-9bac-db6f3a60e03d
 
-I'm not plural myself, but I do know a lot of Hack Club members that are plural and do want an easier way to differentiate between alters. Thus, I made this.
+I'm plural myself (endoftimee), and I am not (Suya), but I do know a lot of Hack Club members that are plural and do want an easier way to differentiate between alters. Thus, I made this.
 It works similarly to PluralKit, by basically rewriting sent messages under different members using Slack's API.
 
 ## Features
@@ -19,6 +19,7 @@ It works similarly to PluralKit, by basically rewriting sent messages under diff
   - Message info (i.e. the profile of the member that sent it)
   - Message reproxying (i.e. sending a message under a different user after it's been sent)
 - Set and view information about a member
+- Import members from PluralKit via `/sync from-pk <token>`
 
 ## AI Usage in this project
 (_Required for Summer Of Making by Hack Club_)
