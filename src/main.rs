@@ -30,8 +30,8 @@ use tracing::{debug, info, info_span, level_filters::LevelFilter};
 use tracing_subscriber::{EnvFilter, Layer, layer::SubscriberExt, util::SubscriberInitExt};
 
 /// The slack app token. Used for socket mode if we ever decide to use it.
-pub static APP_TOKEN: LazyLock<SlackApiToken> =
-    LazyLock::new(|| SlackApiToken::new(env::slack_app_token().into()));
+// pub static APP_TOKEN: LazyLock<Option<SlackApiToken>> =
+//     LazyLock::new(|| env::slack_app_token().map(|t| SlackApiToken::new(t.into())));
 
 /// The slack bot token. Used for most interactions
 pub static BOT_TOKEN: LazyLock<SlackApiToken> =
@@ -45,10 +45,41 @@ enum Error {
     Initialization,
 }
 
-#[dotenvy::load]
 #[tokio::main]
 #[tracing::instrument]
 async fn main() -> error_stack::Result<ExitCode, Error> {
+    if std::env::var("USE_DOTENV").is_ok() {
+        // Custom, minimal .env loader to avoid depending on crate helpers in the build image.
+        // This reads .env, parses simple KEY=VALUE lines, strips optional surrounding quotes,
+        // and sets the variables into the environment for the process.
+        if let Ok(content) = std::fs::read_to_string(".env") {
+            for raw_line in content.lines() {
+                let line = raw_line.trim();
+                if line.is_empty() || line.starts_with('#') {
+                    continue;
+                }
+                // Split on the first '='
+                if let Some(eq) = line.find('=') {
+                    let key = line[..eq].trim();
+                    let mut val = line[eq + 1..].trim().to_string();
+                    // Strip surrounding quotes if present
+                    if (val.starts_with('"') && val.ends_with('"'))
+                        || (val.starts_with('\'') && val.ends_with('\''))
+                    {
+                        if val.len() >= 2 {
+                            val = val[1..val.len() - 1].to_string();
+                        }
+                    }
+                    // Only set if key non-empty
+                    if !key.is_empty() {
+                        unsafe { std::env::set_var(key, val) };
+                    }
+                }
+            }
+        } else {
+            tracing::debug!(".env requested via USE_DOTENV but .env file not found");
+        }
+    }
     let console_subscriber = tracing_subscriber::fmt::layer().pretty();
     let error_subscriber = tracing_error::ErrorLayer::default();
     let env_subscriber = EnvFilter::builder()
@@ -86,6 +117,18 @@ async fn main() -> error_stack::Result<ExitCode, Error> {
     let pool = SqlitePool::connect_with(options)
         .await
         .attach_printable("Error connecting to database")
+        .change_context(Error::Initialization)?;
+
+    sqlx::query("PRAGMA journal_mode=WAL;")
+        .execute(&pool)
+        .await
+        .attach_printable("Error setting WAL mode")
+        .change_context(Error::Initialization)?;
+
+    sqlx::query("PRAGMA synchronous=NORMAL;")
+        .execute(&pool)
+        .await
+        .attach_printable("Error setting synchronous mode")
         .change_context(Error::Initialization)?;
 
     sqlx::migrate!()
