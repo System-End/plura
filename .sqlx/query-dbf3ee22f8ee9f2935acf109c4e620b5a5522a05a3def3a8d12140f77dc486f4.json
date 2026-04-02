@@ -1,0 +1,44 @@
+{
+  "db_name": "SQLite",
+  "query": "\n                SELECT\n                    members.id as \"id: member::Id<Trusted>\",\n                    display_name,\n                    profile_picture_url,\n                    triggers.text as trigger_text,\n                    triggers.typ\n                FROM\n                    members\n                JOIN\n                    triggers ON members.id = triggers.member_id\n                WHERE\n                    -- See trigger.rs file for all types and names\n                    members.enabled = TRUE AND\n                    ((triggers.typ = 0 AND $1 LIKE '%' || triggers.text) OR\n                    (triggers.typ = 1 AND $1 LIKE triggers.text || '%'))\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: member::Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "display_name",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "profile_picture_url",
+        "ordinal": 2,
+        "type_info": "Text"
+      },
+      {
+        "name": "trigger_text",
+        "ordinal": 3,
+        "type_info": "Text"
+      },
+      {
+        "name": "typ",
+        "ordinal": 4,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "dbf3ee22f8ee9f2935acf109c4e620b5a5522a05a3def3a8d12140f77dc486f4"
+}

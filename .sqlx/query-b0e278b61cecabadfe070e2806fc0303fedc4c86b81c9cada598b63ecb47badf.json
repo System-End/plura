@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            SELECT\n                id as \"id: Id<Trusted>\",\n                member_id as \"member_id: member::Id<Trusted>\",\n                message_id\n            FROM\n                message_logs\n            WHERE message_id = $1\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "member_id: member::Id<Trusted>",
+        "ordinal": 1,
+        "type_info": "Integer"
+      },
+      {
+        "name": "message_id",
+        "ordinal": 2,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "b0e278b61cecabadfe070e2806fc0303fedc4c86b81c9cada598b63ecb47badf"
+}

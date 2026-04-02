@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            UPDATE triggers\n            SET\n                typ = coalesce($2, typ),\n                text = coalesce($3, text)\n            WHERE id = $1\n            RETURNING\n                id as \"id: Id<Trusted>\"\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "df793c15ed1ca3a4af1148ec9fec377aab3ccf7cfc38250515b4301f21f8809b"
+}

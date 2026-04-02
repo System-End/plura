@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "\n                INSERT INTO message_logs (member_id, message_id)\n                VALUES ($1, $2)\n                RETURNING\n                    id as \"id: Id<Trusted>\",\n                    member_id as \"member_id: member::Id<Trusted>\",\n                    message_id\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "member_id: member::Id<Trusted>",
+        "ordinal": 1,
+        "type_info": "Integer"
+      },
+      {
+        "name": "message_id",
+        "ordinal": 2,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "fd7f6f5bb12f059c5c8ffb310d6ed2d5d4c9d525fd1bf2ee948fb1c07a6115f1"
+}
