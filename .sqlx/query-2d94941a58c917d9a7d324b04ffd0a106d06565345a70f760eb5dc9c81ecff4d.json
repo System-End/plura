@@ -1,0 +1,44 @@
+{
+  "db_name": "SQLite",
+  "query": "\n                SELECT\n                    id as \"id: Id<Trusted>\",\n                    member_id as \"member_id: member::Id<Trusted>\",\n                    system_id as \"system_id: system::Id<Trusted>\",\n                    text,\n                    typ\n                FROM\n                    triggers\n                WHERE\n                   system_id = $1\n                ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "member_id: member::Id<Trusted>",
+        "ordinal": 1,
+        "type_info": "Integer"
+      },
+      {
+        "name": "system_id: system::Id<Trusted>",
+        "ordinal": 2,
+        "type_info": "Integer"
+      },
+      {
+        "name": "text",
+        "ordinal": 3,
+        "type_info": "Text"
+      },
+      {
+        "name": "typ",
+        "ordinal": 4,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "2d94941a58c917d9a7d324b04ffd0a106d06565345a70f760eb5dc9c81ecff4d"
+}

@@ -3,8 +3,9 @@ use menv::require_envs;
 require_envs! {
     (assert_env_vars, any_set, gen_help);
 
-    slack_app_token, "SLACK_APP_TOKEN", String,
-    "SLACK_APP_TOKEN should be set to the bot's app token";
+    // slack_app_token, "SLACK_APP_TOKEN", Option<String>,
+    // "SLACK_APP_TOKEN should be set to the bot's app token (required for socket mode)";
+
 
     slack_bot_token, "SLACK_BOT_TOKEN", String,
     "SLACK_BOT_TOKEN should be set to the bot's user token";

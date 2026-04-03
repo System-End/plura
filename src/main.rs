@@ -30,8 +30,8 @@ use tracing::{debug, info, info_span, level_filters::LevelFilter};
 use tracing_subscriber::{EnvFilter, Layer, layer::SubscriberExt, util::SubscriberInitExt};
 
 /// The slack app token. Used for socket mode if we ever decide to use it.
-pub static APP_TOKEN: LazyLock<SlackApiToken> =
-    LazyLock::new(|| SlackApiToken::new(env::slack_app_token().into()));
+// pub static APP_TOKEN: LazyLock<Option<SlackApiToken>> =
+//     LazyLock::new(|| env::slack_app_token().map(|t| SlackApiToken::new(t.into())));
 
 /// The slack bot token. Used for most interactions
 pub static BOT_TOKEN: LazyLock<SlackApiToken> =
@@ -45,7 +45,7 @@ enum Error {
     Initialization,
 }
 
-#[dotenvy::load]
+#[dotenvy::load(required = false)]
 #[tokio::main]
 #[tracing::instrument]
 async fn main() -> error_stack::Result<ExitCode, Error> {
@@ -86,6 +86,18 @@ async fn main() -> error_stack::Result<ExitCode, Error> {
     let pool = SqlitePool::connect_with(options)
         .await
         .attach_printable("Error connecting to database")
+        .change_context(Error::Initialization)?;
+
+    sqlx::query("PRAGMA journal_mode=WAL;")
+        .execute(&pool)
+        .await
+        .attach_printable("Error setting WAL mode")
+        .change_context(Error::Initialization)?;
+
+    sqlx::query("PRAGMA synchronous=NORMAL;")
+        .execute(&pool)
+        .await
+        .attach_printable("Error setting synchronous mode")
         .change_context(Error::Initialization)?;
 
     sqlx::migrate!()

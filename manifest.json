@@ -1,0 +1,138 @@
+{
+    "display_information": {
+        "name": "Plura",
+        "description": "A bot designed to make the lives of plural systems easier",
+        "background_color": "#0b0824",
+        "long_description": "Plura is a bot that can replace user-sent messages under a \"pseudo-account\" of a systems member profile using custom display information.\r\n\r\nThis is useful for multiple people sharing one body (aka. systems), people who wish to role-play as different characters without having multiple Slack profiles, or anyone else who may want to post messages under a different identity from the same Slack account.\r\n\r\nDue to Slack's limitations, these messages will show up with the [APP] tag - however, they are not apps/bots. You can use message actions to find who the message was sent by.\r\n\r\nIf you wish to use the bot yourself, you can start with `/system help` and `/members help`."
+    },
+    "features": {
+        "bot_user": {
+            "display_name": "Plura",
+            "always_online": false
+        },
+        "shortcuts": [
+            {
+                "name": "Reproxy Message",
+                "type": "message",
+                "callback_id": "reproxy_message",
+                "description": "Resends a message sent by either your main account or one of your system members profiles under another members profile."
+            },
+            {
+                "name": "Get message information",
+                "type": "message",
+                "callback_id": "message_info",
+                "description": "Get info about who sent this message"
+            },
+            {
+                "name": "Delete message",
+                "type": "message",
+                "callback_id": "delete_message",
+                "description": "Deletes a message sent by one of your system members"
+            },
+            {
+                "name": "Edit message",
+                "type": "message",
+                "callback_id": "edit_message",
+                "description": "Edits a message sent by a member"
+            }
+        ],
+        "slash_commands": [
+            {
+                "command": "/members",
+                "url": "https://YOUR_DOMAIN/command",
+                "description": "Manage system members",
+                "usage_hint": "help",
+                "should_escape": true
+            },
+            {
+                "command": "/system",
+                "url": "https://YOUR_DOMAIN/command",
+                "description": "Manage or create your system",
+                "usage_hint": "help",
+                "should_escape": true
+            },
+            {
+                "command": "/triggers",
+                "url": "https://YOUR_DOMAIN/command",
+                "description": "Manage triggers",
+                "usage_hint": "help",
+                "should_escape": true
+            },
+            {
+                "command": "/aliases",
+                "url": "https://YOUR_DOMAIN/command",
+                "description": "Manage aliases",
+                "usage_hint": "help",
+                "should_escape": true
+            },
+            {
+                "command": "/sync",
+                "url": "https://YOUR_DOMAIN/command",
+                "description": "Sync members from PluralKit",
+                "usage_hint": "from-pk <token>",
+                "should_escape": false
+            },
+            {
+                "command": "/explain",
+                "url": "https://YOUR_DOMAIN/command",
+                "description": "Explains how this bot works",
+                "should_escape": false
+            }
+        ]
+    },
+    "oauth_config": {
+        "redirect_urls": [
+            "https://YOUR_DOMAIN"
+        ],
+        "scopes": {
+            "user": [
+                "users:read",
+                "chat:write",
+                "channels:history",
+                "groups:history",
+                "im:history",
+                "mpim:history"
+            ],
+            "bot": [
+                "channels:history",
+                "chat:write",
+                "chat:write.customize",
+                "chat:write.public",
+                "commands",
+                "groups:history",
+                "im:history",
+                "mpim:history",
+                "groups:write",
+                "mpim:write",
+                "mpim:read",
+                "groups:read",
+                "im:write"
+            ]
+        },
+        "pkce_enabled": false
+    },
+    "settings": {
+        "event_subscriptions": {
+            "request_url": "https://YOUR_DOMAIN/push",
+            "user_events": [
+                "message.channels",
+                "message.groups",
+                "message.im",
+                "message.mpim"
+            ],
+            "bot_events": [
+                "message.channels",
+                "message.groups",
+                "message.im",
+                "message.mpim"
+            ]
+        },
+        "interactivity": {
+            "is_enabled": true,
+            "request_url": "https://YOUR_DOMAIN/interaction"
+        },
+        "org_deploy_enabled": false,
+        "socket_mode_enabled": false,
+        "token_rotation_enabled": false
+    }
+}

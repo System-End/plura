@@ -9,6 +9,7 @@ use std::sync::Arc;
 
 mod alias;
 mod member;
+mod sync;
 mod system;
 mod trigger;
 
@@ -20,6 +21,7 @@ use slack_morphism::prelude::*;
 use tracing::{Level, debug, error, trace};
 
 use member::Member;
+use sync::Sync;
 use system::System;
 use trigger::Trigger;
 
@@ -36,6 +38,8 @@ enum Command {
     Triggers(Trigger),
     #[clap(subcommand)]
     Aliases(Alias),
+    #[clap(subcommand)]
+    Sync(Sync),
     /// Provides an explanation of this bot.
     Explain,
 }
@@ -65,6 +69,10 @@ impl Command {
                 .run(event, state)
                 .await
                 .change_context(CommandError::Aliases),
+            Self::Sync(sync) => sync
+                .run(event, client, state)
+                .await
+                .change_context(CommandError::Sync),
             Self::Explain => Ok(Self::explain()),
         }
     }
@@ -73,13 +81,13 @@ impl Command {
         SlackCommandEventResponse::new(
             SlackMessageContent::new().with_text(
                 indoc::indoc! {r#"
-                Slack System Bot is a bot that can replace user-sent messages under a "pseudo-account" of a systems member profile using custom display information.
+                Plura is a bot that can replace user-sent messages under a "pseudo-account" of a systems member profile using custom display information.
 
                 This is useful for multiple people sharing one body (aka. systems), people who wish to role-play as different characters without having multiple Slack profiles, or anyone else who may want to post messages under a different identity from the same Slack account.
 
                 Due to Slack's limitations, these messages will show up with the [APP] tag - however, they are not apps/bots. You can use message actions to find who the message was sent by.
 
-                If you wish to use the bot yourself, you can start with `/system help` and `/members help`.
+                If you wish to use the bot yourself, you can start with `/system help` and `/members help`. Other commands: `/triggers help`, `/aliases help`, `/sync help`.
                 "#}.into(),
             ),
         ).with_response_type(SlackMessageResponseType::InChannel)
@@ -96,9 +104,10 @@ enum CommandError {
     System,
     /// Error running the aliases command
     Aliases,
+    /// Error running the sync command
+    Sync,
 }
 
-// TO-DO: figure out error handling
 #[tracing::instrument(skip(environment, event))]
 pub async fn process_command_event(
     Extension(environment): Extension<Arc<SlackHyperListenerEnvironment>>,
@@ -110,7 +119,7 @@ pub async fn process_command_event(
     match command_event_callback(event, client, state).await {
         Ok(response) => Json(response),
         Err(e) => {
-            error!(error = ?e, "Error processing command event");
+            tracing::error!(error = ?e, "Error processing command event");
             Json(SlackCommandEventResponse::new(
                 SlackMessageContent::new()
                     .with_text("Error processing command! Logged to developers".into()),
@@ -150,7 +159,7 @@ async fn command_event_callback(
                     error!(error = ?e, "Error running command");
                     Ok(SlackCommandEventResponse::new(
                         SlackMessageContent::new().with_text(
-                            "Error running command! TODO: show error info on slack".into(),
+                            format!("Error running command: {e}").into(),
                         ),
                     ))
                 }

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            UPDATE systems\n            SET currently_fronting_member_id = $1\n            WHERE id = $2\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "2e030f837049b2992ed340b9ea6a091d2a9a06eb6eb72f1b4df5d8f3f863d3c7"
+}

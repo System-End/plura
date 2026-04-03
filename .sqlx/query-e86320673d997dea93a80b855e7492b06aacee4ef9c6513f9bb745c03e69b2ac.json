@@ -1,0 +1,44 @@
+{
+  "db_name": "SQLite",
+  "query": "\n                SELECT\n                    members.id,\n                    display_name,\n                    full_name,\n                    enabled,\n                    GROUP_CONCAT(aliases.alias, ', ') as aliases\n                FROM\n                    members\n                JOIN\n                    aliases ON members.id = aliases.member_id\n                WHERE\n                    members.system_id = $1\n                GROUP BY members.id\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "display_name",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "full_name",
+        "ordinal": 2,
+        "type_info": "Text"
+      },
+      {
+        "name": "enabled",
+        "ordinal": 3,
+        "type_info": "Bool"
+      },
+      {
+        "name": "aliases",
+        "ordinal": 4,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "e86320673d997dea93a80b855e7492b06aacee4ef9c6513f9bb745c03e69b2ac"
+}

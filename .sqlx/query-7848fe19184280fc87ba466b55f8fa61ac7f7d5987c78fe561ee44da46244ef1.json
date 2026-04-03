@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            INSERT INTO system_oauth_process (owner_id, csrf)\n            VALUES ($1, $2)\n            ON CONFLICT (owner_id) DO UPDATE SET csrf = $2\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "7848fe19184280fc87ba466b55f8fa61ac7f7d5987c78fe561ee44da46244ef1"
+}

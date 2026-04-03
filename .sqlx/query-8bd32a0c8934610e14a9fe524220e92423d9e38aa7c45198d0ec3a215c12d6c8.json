@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            UPDATE members\n            SET full_name = $1, display_name = $2, profile_picture_url = $3, title = $4, pronouns = $5, name_pronunciation = $6, name_recording_url = $7\n            WHERE id = $8\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 8
+    },
+    "nullable": []
+  },
+  "hash": "8bd32a0c8934610e14a9fe524220e92423d9e38aa7c45198d0ec3a215c12d6c8"
+}

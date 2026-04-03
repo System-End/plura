@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "\n        SELECT\n            id as \"id: system::Id<Trusted>\"\n        FROM\n            systems\n    ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: system::Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "e811964cfde379fed00e5941f976b9a384ca7c76324209ea15351a01f4dd5d64"
+}

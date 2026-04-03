@@ -1,0 +1,38 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            INSERT INTO aliases (member_id, system_id, alias)\n            VALUES ($1, $2, $3)\n            RETURNING\n                id as \"id: Id<Trusted>\",\n                member_id as \"member_id: member::Id<Trusted>\",\n                system_id as \"system_id: system::Id<Trusted>\",\n                alias\n            ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id: Id<Trusted>",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "member_id: member::Id<Trusted>",
+        "ordinal": 1,
+        "type_info": "Integer"
+      },
+      {
+        "name": "system_id: system::Id<Trusted>",
+        "ordinal": 2,
+        "type_info": "Integer"
+      },
+      {
+        "name": "alias",
+        "ordinal": 3,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "11e30e5ce59cf0822e6ebd41bf76a5af7c7e8cdd7667439452b502eaa1073697"
+}
